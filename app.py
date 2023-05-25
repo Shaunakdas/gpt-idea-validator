@@ -13,19 +13,12 @@ st.sidebar.info(
 
 # Set the model engine and your OpenAI API key
 model_engine = "text-davinci-003"
-# Get OpenAI API key and source text input
-openai_api_key = st.text_input("OpenAI API Key", type="password")
-openai.api_key = "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"
 
 def main():
     '''
     This function gets the user input, pass it to ChatGPT function and
     displays the response
     '''
-    # Get user input
-    user_query = st.text_input("Enter startup idea here, to exit enter :q", "Smart watch for older women")
-    if not openai_api_key.strip() or not user_query.strip():
-        st.error("Please provide the missing fields.")
     if user_query != ":q" or user_query != "":
         prompt = "Craft a 30-second elevator pitch for following startup idea that highlights its unique value proposition and leaves a lasting impression: "+ user_query
         # Pass the query to the ChatGPT function
@@ -48,6 +41,9 @@ def ChatGPT(user_query):
     response = completion.choices[0].text
     return response
 
+openai.api_key = st.text_input("OpenAI API Key", type="password")
+# Get user input
+user_query = st.text_input("Enter startup idea here, to exit enter :q", "Smart watch for older women")
 # call the main function
-main()
-
+if st.button("Generate"):
+    main()
